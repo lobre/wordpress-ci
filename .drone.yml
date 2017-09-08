@@ -2,10 +2,5 @@ pipeline:
 
   publish:
     image: plugins/docker
-    username: ${DOCKER_USERNAME}
-    password: ${DOCKER_PASSWORD}
-    email: ${DOCKER_EMAIL}
     repo: lobre/wordpress-ci
-    tags:
-      - latest
-    dockerfile: ./Dockerfile
+    secrets: [ docker_username, docker_password ]

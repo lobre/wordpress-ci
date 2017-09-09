@@ -4,3 +4,12 @@ pipeline:
     image: plugins/docker
     repo: lobre/wordpress-ci
     secrets: [ docker_username, docker_password ]
+  deploy:
+    image: appleboy/drone-ssh     
+    host: lobr.fr     
+    username: ${DEPLOY_USERNAME}     
+    password: ${DEPLOY_PASSWORD}
+    port: 22
+    script:
+      - echo hello       
+      - echo world  

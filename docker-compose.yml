@@ -2,7 +2,7 @@ version: "2"
 
 services:
   app:
-    build: .
+    image: lobre/wordpress-ci
     container_name: wordpress-ci
     ports:
       - 8088:80

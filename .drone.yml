@@ -7,8 +7,9 @@ pipeline:
   deploy:
     image: appleboy/drone-ssh     
     host: lobr.fr     
-    secrets: [ ssh_username, ssh_password ]
+    secrets: [ ssh_path, ssh_username, ssh_password ]
     port: 22
     script:
-      - echo hello       
-      - echo world  
+      - cd $SSH_PATH 
+      - docker-compose pull
+      - docker-compose up -d

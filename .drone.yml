@@ -4,12 +4,18 @@ pipeline:
     image: plugins/docker
     repo: lobre/wordpress-ci
     secrets: [ docker_username, docker_password ]
-  deploy:
-    image: appleboy/drone-ssh     
-    host: lobr.fr     
+  scp:
+    image: appleboy/drone-scp
+    host: lobr.fr
+    secrets: [ ssh_username, ssh_password ]
+    target: ~/wordpress-ci/docker-compose.yml
+    source: docker-compose.yml
+  ssh:
+    image: appleboy/drone-ssh
+    host: lobr.fr
     secrets: [ ssh_username, ssh_password ]
     port: 22
     script:
-      - cd wordpress-ci
+      - cd ~/wordpress-ci
       - docker-compose pull
       - docker-compose up -d

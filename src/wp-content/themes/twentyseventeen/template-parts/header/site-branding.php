@@ -14,6 +14,7 @@
 
 		<?php the_custom_logo(); ?>
 
+		<h1>Test</h1>
 		<div class="site-branding-text">
 			<?php if ( is_front_page() ) : ?>
 				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>

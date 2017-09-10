@@ -10,7 +10,6 @@ pipeline:
     secrets: [ ssh_path, ssh_username, ssh_password ]
     port: 22
     script:
-      - cd $SSH_PATH
-      - echo $SSH_PATH
+      - printenv
       - docker-compose pull
       - docker-compose up -d

@@ -1,14 +1,20 @@
 pipeline:
-  publish:
+  publish-apache:
     image: plugins/docker
-    repo: lobre/wordpress-ci
+    dockerfile: ./docker/apache/Dockerfile
+    repo: lobre/wordpress-apache
+    secrets: [ docker_username, docker_password ]
+  publish-php:
+    image: plugins/docker
+    dockerfile: ./docker/php/Dockerfile
+    repo: lobre/wordpress-php
     secrets: [ docker_username, docker_password ]
   scp:
     image: appleboy/drone-scp
     host: lobr.fr
     secrets: [ ssh_username, ssh_password ]
     target: ~/wordpress-ci
-    source: docker-compose.yml
+    source: docker-compose-dist.yml
   ssh:
     image: appleboy/drone-ssh
     host: lobr.fr
@@ -17,4 +23,4 @@ pipeline:
     script:
       - cd ~/wordpress-ci
       - docker-compose pull
-      - docker-compose up -d
+      - docker-compose -f docker-compose-dist.yml up -d

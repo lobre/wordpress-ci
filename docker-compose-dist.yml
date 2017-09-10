@@ -1,0 +1,52 @@
+version: "2"
+
+services:
+  mariadb:
+    image: wodby/mariadb:10.1-2.3.3
+    container_name: wordpress_db
+    networks:
+      - wordpress
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  php:
+    image: lobre/wordpress-php
+    container_name: wordpress_php
+    networks:
+      - wordpress
+    environment:
+      PHP_SENDMAIL_PATH: /usr/sbin/sendmail -t -i -S mailhog:1025
+
+  apache:
+    image: lobre/wordpress-apache
+    container_name: wordpress_apache
+    networks:
+      - wordpress
+    depends_on:
+      - php
+    environment:
+      APACHE_LOG_LEVEL: debug
+      APACHE_BACKEND_HOST: php
+      APACHE_SERVER_ROOT: /var/www/html
+    labels:
+      - traefik.enable=true
+      - traefik.home=true
+      - traefik.port=80
+      - traefik.frontend.rule=Host:wordpress.lobr.fr
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: wordpress_mailhog
+    networks:
+      - wordpress
+    labels:
+      - traefik.enable=true
+      - traefik.home=true
+      - traefik.port=8025
+      - traefik.frontend.rule=Host:mailhog-wordpress.lobr.fr
+
+networks:
+  wordpress:

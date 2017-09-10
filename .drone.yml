@@ -7,9 +7,9 @@ pipeline:
   deploy:
     image: appleboy/drone-ssh     
     host: lobr.fr     
-    secrets: [ ssh_path, ssh_username, ssh_password ]
+    secrets: [ ssh_username, ssh_password ]
     port: 22
     script:
-      - printenv
+      - cd wordpress-ci
       - docker-compose pull
       - docker-compose up -d

@@ -11,6 +11,6 @@ pipeline:
     port: 22
     script:
       - cd $SSH_PATH
-      - pwd
+      - echo $SSH_PATH
       - docker-compose pull
       - docker-compose up -d

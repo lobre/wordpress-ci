@@ -7,7 +7,7 @@ pipeline:
   deploy:
     image: appleboy/drone-ssh     
     host: lobr.fr     
-    secrets: [ deploy_username, deploy_password ]
+    secrets: [ ssh_username, ssh_password ]
     port: 22
     script:
       - echo hello       

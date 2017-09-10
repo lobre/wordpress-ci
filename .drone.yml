@@ -1,5 +1,4 @@
-pipeline:  
-
+pipeline:
   publish:
     image: plugins/docker
     repo: lobre/wordpress-ci
@@ -8,7 +7,7 @@ pipeline:
     image: appleboy/drone-scp
     host: lobr.fr
     secrets: [ ssh_username, ssh_password ]
-    target: ~/wordpress-ci/docker-compose.yml
+    target: ~/wordpress-ci
     source: docker-compose.yml
   ssh:
     image: appleboy/drone-ssh
